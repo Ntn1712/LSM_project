@@ -90,53 +90,11 @@
     
     // Markers Polylines poluygons circles and popups
     var marker = L.marker([lat, lng]).addTo(mymap);
-    /*var circle = L.circle([51.508, -0.11], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-    }).addTo(mymap);
-    var polygon = L.polygon([
-        [51.509, -0.08],
-        [51.503, -0.06],
-        [51.51, -0.047]
-    ]).addTo(mymap);
-    */
+    
     // Informacion attach
     marker.bindPopup("<b>Hello Buddy!</b><br><%= foundLoc.name%> here.").openPopup();
-    /*circle.bindPopup("I am a circle.");
-    polygon.bindPopup("I am a polygon.");*/
+   
     
 </script> 
-
-<!-- Google API Script 
-    <script>
-        function initMap() {
-          var lat = '<%= foundLoc.lat %>';
-          var lng = '<%= foundLoc.lng %>';
-          var center = {lat: lat, lng: lng };
-          var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 8,
-              center: center,
-              scrollwheel: false
-          });
-          var contentString = `
-            <strong><%= foundLoc.name %><br />
-            <%= foundLoc.location %></strong>
-            <p><%= foundLoc.description %></p>
-          `
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
-          var marker = new google.maps.Marker({
-              position: center,
-              map: map
-          });
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });
-        }
-      </script>
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA04lqfyK6VH7yb-Hc9VhgKdQQjm9W0rNU&callback=initMap"></script> -->
 
 <% include ../partials/footer %>
