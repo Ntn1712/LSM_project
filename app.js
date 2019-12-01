@@ -20,7 +20,7 @@ const indexRoutes = require("./routes/index");
 const profileRoutes = require("./routes/profile");
 
 
-mongoose.connect("mongodb://localhost/lsm_blog", 
+mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/lsm_blog", 
     {useNewUrlParser : true, useFindAndModify : false, useCreateIndex: true},
     err => {
         if(!err) console.log("Connection successfull");
