@@ -1,0 +1,142 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <p class="lead">Welcome to <%= foundLoc.name.toUpperCase() %></p>
+            <div id="mapid"></div>
+            <span style="padding: 1px;"></span>
+            <div class="card card-body bg-light">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/locations/<%= foundLoc._id %>/comments/new">Add new Comment <i class="fa fa-comments-o" aria-hidden="true"></i></a>
+                </div>
+                <hr>
+                <div>
+                    <% foundLoc.comments.forEach(function(comment){ %>
+                        <h6><i class="fa fa-user-o" aria-hidden="true"></i> <%= comment.author.username %></h6>
+                        <p><i class="fa fa-comment-o" aria-hidden="true"></i> <%= comment.text %></p>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                            <a class="btn btn-warning btn-sm"
+                            href="/locations/<%= foundLoc._id %>/comments/<%= comment._id %>/edit">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <form style="display: inline;"
+                                action="/locations/<%= foundLoc._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                method="POST">
+                            <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </form>
+                        <% } %> 
+                        <hr>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8" id="loc-showCard">
+            <div class="img-thumbnail">
+                <img class="img-responsive" src="<%= foundLoc.image %>">
+                <div class="container">
+                    <div id="loc-showBtn">
+                        <% if(currentUser && currentUser.isAdmin){ %>
+                            <a class="btn btn-warning btn-sm" href="/locations/<%= foundLoc._id %>/edit">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <form style="display: inline;" action="/locations/<%= foundLoc._id %>?_method=DELETE"
+                                method="POST">
+                                <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </form>
+                        <% } %> 
+                    </div>
+                    <h2><strong><%= foundLoc.name.toUpperCase() %></strong></h2>
+                    <hr>
+                    <p><%= foundLoc.desc %></p>
+                    <ul>
+                        <li><strong>Area</strong> : <em><%= foundLoc.area %> km square approx</em></li>
+                        <li><strong>Population</strong> : <em><%= foundLoc.population %> crores approx</em></li>
+                        <li><strong>Best Tourist Places</strong> :</li>
+                        <ul>
+                            <li><em><%= foundLoc.tplace1 %></em></li>
+                            <li><em><%= foundLoc.tplace2 %></em></li>
+                            <li><em><%= foundLoc.tplace3 %></em></li>
+                        </ul>
+                        <li><strong>Best Schools</strong> :</li>
+                        <ul>
+                            <li><em><%= foundLoc.school1 %></em></li>
+                            <li><em><%= foundLoc.school2 %></em></li>
+                            <li><em><%= foundLoc.school3 %></em></li>
+                        </ul>
+                        <li><strong>Best Restaurants</strong> :</li>
+                        <ul>
+                            <li><em><%= foundLoc.bres1 %></em></li>
+                            <li><em><%= foundLoc.bres2 %></em></li>
+                            <li><em><%= foundLoc.bres3 %></em></li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Show the Map using a SCRIPT leaflet<3
+       var lat = <%= foundLoc.lat%>;
+       var lng = <%= foundLoc.lng%>;
+       //Display Map
+        var mymap = L.map('mapid').setView([lat, lng],13);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap & OpenCage</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1Ijoibml0aW4xNzEyIiwiYSI6ImNqd3VrY3U1bTA2aDg0Mm03NHJmcXN6c3QifQ.3jarO8CTXpWIzspoYGqMTw'
+    }).addTo(mymap);
+    
+    
+    
+    // Markers Polylines poluygons circles and popups
+    var marker = L.marker([lat, lng]).addTo(mymap);
+    /*var circle = L.circle([51.508, -0.11], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(mymap);
+    var polygon = L.polygon([
+        [51.509, -0.08],
+        [51.503, -0.06],
+        [51.51, -0.047]
+    ]).addTo(mymap);
+    */
+    // Informacion attach
+    marker.bindPopup("<b>Hello Buddy!</b><br><%= foundLoc.name%> here.").openPopup();
+    /*circle.bindPopup("I am a circle.");
+    polygon.bindPopup("I am a polygon.");*/
+    
+</script> 
+
+<!-- Google API Script 
+    <script>
+        function initMap() {
+          var lat = '<%= foundLoc.lat %>';
+          var lng = '<%= foundLoc.lng %>';
+          var center = {lat: lat, lng: lng };
+          var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 8,
+              center: center,
+              scrollwheel: false
+          });
+          var contentString = `
+            <strong><%= foundLoc.name %><br />
+            <%= foundLoc.location %></strong>
+            <p><%= foundLoc.description %></p>
+          `
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          var marker = new google.maps.Marker({
+              position: center,
+              map: map
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        }
+      </script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA04lqfyK6VH7yb-Hc9VhgKdQQjm9W0rNU&callback=initMap"></script> -->
+
+<% include ../partials/footer %>

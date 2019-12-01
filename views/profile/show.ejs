@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+
+<div class="container sign-up">
+    <h1>Profile</h1>
+    <hr id="hr-signup">
+    <div class="form-group">
+        <label><strong>Email</strong></label>
+        <p><em><%= foundProf.email %></em></p>
+    </div>
+    <div class="form-group">
+        <label><strong>Username</strong></label>
+        <p><em><%= foundProf.username %></em></p>
+    </div>
+    <div class="form-group">
+        <label><strong>Full Name</strong></label>
+        <p><em><%= foundProf.name %></em></p>
+    </div>
+    <div class="form-group">
+        <label><Strong>Age</Strong></label>
+        <p><em><%= foundProf.age %></em></p>
+    </div>
+    <div>
+        <a href="/profile/<%= foundProf._id %>/editPass" class="btn btn-primary ">Reset Password</a>
+    </div>
+    <div id="signup-btn">
+        <a href="/profile/<%= foundProf._id %>/edit" class="btn btn-warning btn-sm">Edit Profile</a>
+        <form style="display: inline;" action="/profile/<%= foundProf._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger btn-sm">Delete Profile</button>
+        </form>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+

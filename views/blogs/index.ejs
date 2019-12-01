@@ -1,0 +1,48 @@
+<% include ../partials/header %>
+
+<div class="container-fluid">
+    <header class="jumbotron">
+        <div>
+            <h1><i class="fa fa-book" aria-hidden="true"></i> Blog App</h1>
+            <p>Most Popular Blogs</p>
+            <a class="btn btn-primary" href="/blogs/new"><i class="fa fa-plus" aria-hidden="true"></i> Add a New Blog</a>
+        </div>
+        <p>
+            <form action="/blogs" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="search" placeholder="Blog search" class="form-control">
+                    <button style="margin-left: 5px;" class="btn btn-primary btn-sm">Search</button>
+                </div>
+            </form>
+        </p>
+    </header>
+    <div class="container">
+        <div class="col-lg-12 text-center">
+            <% if(noMatch !== undefined){ %>
+                <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+        <% blogs.forEach(function(blog){ %>
+        <div class="img-thumbnail">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div style="height: 100%">
+                        <img style="width: 100%; height: 100%;" class="img-responsive" src="<%= blog.image %>">
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="caption-full">                
+                        <h3><%= blog.title.toUpperCase() %></h3>
+                        <p><%= blog.body.substring(0,100) %> <strong>...</strong></p>
+                        <h6><em>by <a href="/user/<%= blog.author.id %>"><%= blog.author.username.charAt(0).toUpperCase() + blog.author.username.slice(1) %></a></em></h6>
+                        <a class="btn btn-info btn-sm" href="/blogs/<%= blog._id %>">Show More Details <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>

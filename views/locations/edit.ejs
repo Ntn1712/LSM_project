@@ -1,0 +1,63 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div style="width: 50%; text-align: center; margin: 20px auto;">
+        <form action="/locations/<%= Loc._id %>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label>Name of Location <i class="fa fa-map-marker" aria-hidden="true"></i></label>
+                <input class="form-control" type="text" name="location[name]" value="<%= Loc.name %>">
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input class="form-control" type="text" name="location[location]" id="location" value="<%= Loc.location %>">
+            </div>
+            <div class="form-group">
+                <label>Image URL <i class="fa fa-link" aria-hidden="true"></i></label>
+                <input class="form-control" type="text" name="location[image]" value="<%= Loc.image %>">
+            </div>
+            <div class="form-group">
+                <label>Area <i class="fa fa-area-chart" aria-hidden="true"></i></label>
+                <input class="form-control" type="number" name="location[area]" value="<%= Loc.area %>">
+            </div>
+            <div class="form-group">
+                <label>Population <i class="fa fa-users" aria-hidden="true"></i></label>
+                <input class="form-control" type="number" name="location[population]" value="<%= Loc.population %>">
+            </div>
+            <div class="form-group">
+                <label>Tourist Places <i class="fa fa-globe" aria-hidden="true"></i></label>
+                <input style="margin-bottom: 3px;" class="form-control" type="text" name="location[tplace1]"
+                    value="<%= Loc.tplace1 %>"></li>
+                <input style="margin-bottom: 3px;" class="form-control" type="text" name="location[tplace2]"
+                    value="<%= Loc.tplace2 %>"></li>
+                <input style="margin-bottom: 3px;" class="form-control" type="text" name="location[tplace3]"
+                    value="<%= Loc.tplace3 %>""></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Best Schools <i class="fa fa-graduation-cap" aria-hidden="true"></i></label>
+                <input style=" margin-bottom: 3px;" class="form-control" type="text" name="location[school1]"
+                    value="<%= Loc.school1 %>"">
+                <input style=" margin-bottom: 3px;" class="form-control" type="text" name="location[school2]"
+                    value="<%= Loc.school2 %>"">
+                <input style=" margin-bottom: 3px;" class="form-control" type="text" name="location[school3]"
+                    value="<%= Loc.school3 %>"">
+            </div>
+            <div class="form-group">
+                <label>Best Restaurants <i class="fa fa-cutlery" aria-hidden="true"></i></label>
+                <input style=" margin-bottom: 3px;" class="form-control" type="text" name="location[bres1]"
+                    value="<%= Loc.bres1 %>"">
+                <input style=" margin-bottom: 3px;" class="form-control" type="text" name="location[bres2]"
+                    value="<%= Loc.bres2 %>"">
+                <input style=" margin-bottom: 3px;" class="form-control" type="text" name="location[bres3]"
+                    value="<%= Loc.bres3 %>"">
+            </div>
+            <div class="form-group">
+                <label>Brief Description <i class="fa fa-pencil-square-o" aria-hidden="true"></i></label>
+                <textarea class="form-control" name="location[desc]"><%= Loc.desc %></textarea>
+            </div>
+            <button class=" btn btn-primary">Submit!</button>
+        </form>
+    </div>
+</div>
+
+<% include ../partials/footer %>

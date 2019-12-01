@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+<div class="container-fluid">
+    <header class="jumbotron loc-header">
+        <div>
+            <h1><i class="fa fa-map-marker" aria-hidden="true"></i> Best Places to Visit</h1>
+            <p>in World</p>
+            <% if(currentUser && currentUser.isAdmin){ %>
+            <a class="btn btn-primary" href="/locations/new"><i class="fa fa-plus" aria-hidden="true"></i> Add New Location</a>
+            <% } %>
+            <p>
+                <form action="/locations" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input id="search-input" type="text" name="search" placeholder="Location search">
+                        <button style="margin-left: 5px;" class="btn btn-primary btn-sm">Search</button>
+                    </div>
+                </form>
+            </p>
+        </div>
+    </header>
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <% if(noMatch !== undefined){ %>
+            <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+    <% location.forEach(function(location){ %>
+    <div class="col-lg-4" id="loc-card">
+        <div class="img-thumbnail">
+            <img class="img-responsive" src="<%= location.image %>">
+            <div id="card-detail">
+                <h4><strong><%= location.name.toUpperCase() %></strong></h4>
+                <p><%= location.desc.substring(0, 100) %> <strong>...</strong></p>
+                <a class="btn btn-info show-more" href="/locations/<%= location._id %>"><span>Show More </span></a>
+            </div>    
+        </div>
+    </div>
+    <% }) %>
+</div>
+</div>
+</div>
+
+<% include ../partials/footer %>

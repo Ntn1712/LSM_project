@@ -1,0 +1,31 @@
+.nav>li>a, .navbar-header>a {
+    color: #bfc1bd;
+}
+
+.nav>li>a {
+    border-bottom: solid 3px transparent;
+}
+
+.navbar-expand-lg {
+    padding: 0;
+    background: rgb(0, 0, 0);
+    z-index: 2;
+    transition: 750ms ease;
+}
+
+.nav>li>a:hover {
+    color: #ffffff;
+    border-bottom: solid #ffffff 3px;
+}
+
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+}

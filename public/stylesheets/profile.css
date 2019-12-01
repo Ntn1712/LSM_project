@@ -1,0 +1,17 @@
+#editPAss-hr {
+    border-color: blue;
+    width: 80%
+}
+
+#editPass-con {
+    background: #ffffff;
+    text-align: center;
+    width: 30%;
+    border-radius: 20px;
+    margin: 200px auto;
+    padding: 10px;
+}
+
+#editPass-btn {
+    margin: 10px;
+}

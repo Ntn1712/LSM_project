@@ -1,0 +1,13 @@
+.com-con {
+    background: #ffffff;
+    text-align: center;
+    width: 40%;
+    border-radius: 20px;
+    margin: 150px auto;
+    padding: 10px;
+}
+
+.com-hr {
+    border-color: blue;
+    width: 80%;
+}
