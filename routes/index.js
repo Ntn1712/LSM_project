@@ -42,12 +42,26 @@ router.get("/login", function (req, res) {
     res.render("login");
 });
 
-router.post("/login", passport.authenticate("local",
-    {
-        successRedirect: "/",
-        failureRedirect: "/login",
-    }), function (req, res) {
-    });
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+      if (err){
+        return next(err); }
+      // Redirect if it fails
+      if (!user) { return res.redirect('/login'); }
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+        // Redirect if it succeeds
+        return res.redirect('/user/' + user._id);
+      });
+    })(req, res, next);
+  });
+
+// router.post("/login", passport.authenticate("local",
+//     {
+//         successRedirect: "/",
+//         failureRedirect: "/login",
+//     }), function (req, res) {
+//     });
 
 router.get("/logout", function (req, res) {
     req.logout();

@@ -64,7 +64,7 @@ app.use(locCommentRoutes);
 app.use(profileRoutes);
 
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 5000, function () {
     try {
         console.log("new blog app has started");
     } catch (err){
