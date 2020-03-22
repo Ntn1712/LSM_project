@@ -20,7 +20,7 @@ const indexRoutes = require("./routes/index");
 const profileRoutes = require("./routes/profile");
 
 
-mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/lsm_blog", 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/lsm_blog", 
     {useNewUrlParser : true, useFindAndModify : false, useCreateIndex: true},
     err => {
         if(!err) console.log("Connection successfull");
@@ -64,7 +64,7 @@ app.use(locCommentRoutes);
 app.use(profileRoutes);
 
 
-app.listen(process.env.PORT || 8000, function () {
+app.listen(process.env.PORT || 3000, function () {
     try {
         console.log("new blog app has started");
     } catch (err){

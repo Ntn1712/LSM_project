@@ -23,7 +23,7 @@ router.post("/register", function (req, res) {
         name: req.body.name,
         age: req.body.age,
     });
-    if (req.body.adminCode === 'webadmin') {
+    if (req.body.adminCode === process.env.ADMINCODE) {
         newUser.isAdmin = true;
     }
     User.register(newUser, req.body.password, function (err, user) {
