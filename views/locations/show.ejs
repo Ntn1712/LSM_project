@@ -1,76 +1,109 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-4">
-            <p class="lead">Welcome to <%= foundLoc.name.toUpperCase() %></p>
-            <div id="mapid"></div>
-            <span style="padding: 1px;"></span>
-            <div class="card card-body bg-light">
-                <div class="text-right">
-                    <a class="btn btn-success" href="/locations/<%= foundLoc._id %>/comments/new">Add new Comment <i class="fa fa-comments-o" aria-hidden="true"></i></a>
-                </div>
-                <hr>
-                <div>
-                    <% foundLoc.comments.forEach(function(comment){ %>
-                        <h6><i class="fa fa-user-o" aria-hidden="true"></i> <%= comment.author.username %></h6>
-                        <p><i class="fa fa-comment-o" aria-hidden="true"></i> <%= comment.text %></p>
-                        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                            <a class="btn btn-warning btn-sm"
-                            href="/locations/<%= foundLoc._id %>/comments/<%= comment._id %>/edit">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <form style="display: inline;"
-                                action="/locations/<%= foundLoc._id %>/comments/<%= comment._id %>?_method=DELETE"
-                                method="POST">
-                            <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </form>
-                        <% } %> 
-                        <hr>
-                    <% }) %>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <p class="lead">Welcome to <%= foundLoc.name.toUpperCase() %></p>
+      <div id="mapid"></div>
+      <span style="padding: 1px"></span>
+      <div class="card card-body bg-light">
+        <div class="text-right">
+          <a
+            class="btn btn-success"
+            href="/locations/<%= foundLoc._id %>/comments/new"
+            >Add new Comment <i class="fa fa-comments-o" aria-hidden="true"></i
+          ></a>
         </div>
-        <div class="col-lg-8" id="loc-showCard">
-            <div class="img-thumbnail">
-                <img class="img-responsive" src="<%= foundLoc.image %>">
-                <div class="container">
-                    <div id="loc-showBtn">
-                        <% if(currentUser && currentUser.isAdmin){ %>
-                            <a class="btn btn-warning btn-sm" href="/locations/<%= foundLoc._id %>/edit">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <form style="display: inline;" action="/locations/<%= foundLoc._id %>?_method=DELETE"
-                                method="POST">
-                                <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </form>
-                        <% } %> 
-                    </div>
-                    <h2><strong><%= foundLoc.name.toUpperCase() %></strong></h2>
-                    <hr>
-                    <p><%= foundLoc.desc %></p>
-                    <ul>
-                        <li><strong>Area</strong> : <em><%= foundLoc.area %> km square approx</em></li>
-                        <li><strong>Population</strong> : <em><%= foundLoc.population %> crores approx</em></li>
-                        <li><strong>Best Tourist Places</strong> :</li>
-                        <ul>
-                            <li><em><%= foundLoc.tplace1 %></em></li>
-                            <li><em><%= foundLoc.tplace2 %></em></li>
-                            <li><em><%= foundLoc.tplace3 %></em></li>
-                        </ul>
-                        <li><strong>Best Schools</strong> :</li>
-                        <ul>
-                            <li><em><%= foundLoc.school1 %></em></li>
-                            <li><em><%= foundLoc.school2 %></em></li>
-                            <li><em><%= foundLoc.school3 %></em></li>
-                        </ul>
-                        <li><strong>Best Restaurants</strong> :</li>
-                        <ul>
-                            <li><em><%= foundLoc.bres1 %></em></li>
-                            <li><em><%= foundLoc.bres2 %></em></li>
-                            <li><em><%= foundLoc.bres3 %></em></li>
-                        </ul>
-                    </ul>
-                </div>
-            </div>
+        <hr />
+        <div>
+          <% foundLoc.comments.forEach(function(comment){ %>
+          <h6>
+            <i class="fa fa-user-o" aria-hidden="true"></i> <%=
+            comment.author.name %>
+          </h6>
+          <p>
+            <i class="fa fa-comment-o" aria-hidden="true"></i> <%= comment.text
+            %>
+          </p>
+          <% if(user && comment.author._id.equals(user._id) || user &&
+          user.isAdmin){ %>
+          <a
+            class="btn btn-warning btn-sm"
+            href="/locations/<%= foundLoc._id %>/comments/<%= comment._id %>/edit"
+            >Edit <i class="fa fa-pencil" aria-hidden="true"></i
+          ></a>
+          <form
+            style="display: inline"
+            action="/locations/<%= foundLoc._id %>/comments/<%= comment._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-danger btn-sm">
+              Delete <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </form>
+          <% } %>
+          <hr />
+          <% }) %>
         </div>
+      </div>
     </div>
+    <div class="col-lg-8" id="loc-showCard">
+      <div class="img-thumbnail">
+        <img class="img-responsive" src="<%= foundLoc.image %>" />
+        <div class="container">
+          <div id="loc-showBtn">
+            <% if(user && user.isAdmin){ %>
+            <a
+              class="btn btn-warning btn-sm"
+              href="/locations/<%= foundLoc._id %>/edit"
+              >Edit <i class="fa fa-pencil" aria-hidden="true"></i
+            ></a>
+            <form
+              style="display: inline"
+              action="/locations/<%= foundLoc._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-danger btn-sm">
+                Delete <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </form>
+            <% } %>
+          </div>
+          <h2><strong><%= foundLoc.name.toUpperCase() %></strong></h2>
+          <hr />
+          <p><%= foundLoc.desc %></p>
+          <ul>
+            <li>
+              <strong>Area</strong> :
+              <em><%= foundLoc.area %> km square approx</em>
+            </li>
+            <li>
+              <strong>Population</strong> :
+              <em><%= foundLoc.population %> crores approx</em>
+            </li>
+            <li><strong>Best Tourist Places</strong> :</li>
+            <ul>
+              <li><em><%= foundLoc.tplace1 %></em></li>
+              <li><em><%= foundLoc.tplace2 %></em></li>
+              <li><em><%= foundLoc.tplace3 %></em></li>
+            </ul>
+            <li><strong>Best Schools</strong> :</li>
+            <ul>
+              <li><em><%= foundLoc.school1 %></em></li>
+              <li><em><%= foundLoc.school2 %></em></li>
+              <li><em><%= foundLoc.school3 %></em></li>
+            </ul>
+            <li><strong>Best Restaurants</strong> :</li>
+            <ul>
+              <li><em><%= foundLoc.bres1 %></em></li>
+              <li><em><%= foundLoc.bres2 %></em></li>
+              <li><em><%= foundLoc.bres3 %></em></li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -79,22 +112,22 @@
        var lng = <%= foundLoc.lng%>;
        //Display Map
         var mymap = L.map('mapid').setView([lat, lng],13);
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap & OpenCage</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1Ijoibml0aW4xNzEyIiwiYSI6ImNqd3VrY3U1bTA2aDg0Mm03NHJmcXN6c3QifQ.3jarO8CTXpWIzspoYGqMTw'
-    }).addTo(mymap);
-    
-    
-    
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  attribution: '<strong>OpenCage</strong>',
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: 'mapbox/streets-v11',
+  accessToken: 'pk.eyJ1Ijoibml0aW4xNzEyIiwiYSI6ImNrb2ZpNHd4cTA1dWQybnBseWlreGM3NGgifQ.hwMeVbNd01You7X0vI5x0Q'
+  }).addTo(mymap);
+
+
+
     // Markers Polylines poluygons circles and popups
     var marker = L.marker([lat, lng]).addTo(mymap);
-    
+
     // Informacion attach
     marker.bindPopup("<b>Hello Buddy!</b><br><%= foundLoc.name%> here.").openPopup();
-   
-    
-</script> 
+</script>
 
 <% include ../partials/footer %>

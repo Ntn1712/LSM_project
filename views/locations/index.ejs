@@ -5,7 +5,7 @@
         <div>
             <h1><i class="fa fa-map-marker" aria-hidden="true"></i> Best Places to Visit</h1>
             <p>in World</p>
-            <% if(currentUser && currentUser.isAdmin){ %>
+            <% if(user && isLoggedIn && user.isAdmin){ %>
             <a class="btn btn-primary" href="/locations/new"><i class="fa fa-plus" aria-hidden="true"></i> Add New Location</a>
             <% } %>
             <p>

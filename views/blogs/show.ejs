@@ -1,55 +1,91 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-8">
-            <div style="padding: 0;" class="img-thumbnail">
-                <div class="caption-full" style="text-align: center;">
-                    <h4><%= blog.title.toUpperCase() %></h4>
-                    <p><em>by <%= blog.author.username.charAt(0).toUpperCase() + blog.author.username.slice(1) %></em></p>
-                </div>
-                <hr style="width: 70%">
-                <img style="width: 100%; border-radius: 2%;" class="img-responsive" src="<%= blog.image %>">
-                <hr style="width: 70%">
-                <div class="container caption-full">
-                    <div style="float: right; padding-top: 3px;">
-                        <% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                        <a class="btn btn-warning btn-sm" href="/blogs/<%= blog._id %>/edit">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <form style="display: inline" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
-                        </form>
-                        <% } %>
-                    </div>
-                    <p><%= blog.body %></p>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-lg-8">
+      <div style="padding: 0" class="img-thumbnail">
+        <div class="caption-full" style="text-align: center">
+          <h4><%= blog.title.toUpperCase() %></h4>
+          <p>
+            <em
+              >by <%= blog.author.name.charAt(0).toUpperCase() +
+              blog.author.name.slice(1) %></em
+            >
+          </p>
         </div>
-        <div class="col-lg-4">
-            <div class="card card-body bg-light">
-                <div class="text-right">
-                    <a class="btn btn-success" href="/blogs/<%= blog._id %>/comments/new">Add new Comment <i class="fa fa-comments-o" aria-hidden="true"></i></a>
-                </div>
-                <hr>
-                <div>
-                    <% blog.comments.forEach(function(comment){ %>
-                    <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                    <div style="float: right">
-                        <a class="btn btn-warning btn-sm"
-                            href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/edit">Edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <form style="display: inline;"
-                            action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger btn-sm">Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
-                        </form>
-                    </div>
-                    <% } %>
-                    <h6><i class="fa fa-user-o" aria-hidden="true"></i> <%= comment.author.username %></h6>
-                    <p><i class="fa fa-comment-o" aria-hidden="true"></i> <%= comment.text %></p>
-                    <hr>
-                    <% }) %>
-                </div>
-            </div>
+        <hr style="width: 70%" />
+        <img
+          style="width: 100%; border-radius: 2%"
+          class="img-responsive"
+          src="<%= blog.image %>"
+          alt="Blog Image"
+        />
+        <hr style="width: 70%" />
+        <div class="container caption-full">
+          <div style="float: right; padding-top: 3px">
+            <% if(user && blog.author._id.equals(user._id) && isLoggedIn || user
+            && isLoggedIn && user.isAdmin){ %>
+            <a class="btn btn-warning btn-sm" href="/blogs/<%= blog._id %>/edit"
+              >Edit <i class="fa fa-pencil" aria-hidden="true"></i
+            ></a>
+            <form
+              style="display: inline"
+              action="/blogs/<%= blog._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-danger btn-sm">
+                Delete <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </form>
+            <% } %>
+          </div>
+          <p><%= blog.body %></p>
         </div>
+      </div>
     </div>
+    <div class="col-lg-4">
+      <div class="card card-body bg-light">
+        <div class="text-right">
+          <a class="btn btn-success" href="/blogs/<%= blog._id %>/comments/new"
+            >Add new Comment <i class="fa fa-comments-o" aria-hidden="true"></i
+          ></a>
+        </div>
+        <hr />
+        <div>
+          <% blog.comments.forEach(function(comment){ %> <% if(user &&
+          comment.author._id.equals(user._id) && isLoggedIn || user &&
+          user.isAdmin && isLoggedIn){ %>
+          <div style="float: right">
+            <a
+              class="btn btn-warning btn-sm"
+              href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/edit"
+              >Edit <i class="fa fa-pencil" aria-hidden="true"></i
+            ></a>
+            <form
+              style="display: inline"
+              action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-danger btn-sm">
+                Delete <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+          <% } %>
+          <h6>
+            <i class="fa fa-user-o" aria-hidden="true"></i> <%=
+            comment.author.name %>
+          </h6>
+          <p>
+            <i class="fa fa-comment-o" aria-hidden="true"></i> <%= comment.text
+            %>
+          </p>
+          <hr />
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <% include ../partials/footer %>

@@ -1,19 +1,24 @@
 <% include ../partials/header %>
 
 <div class="container com-con">
-    <h1>Add New Comment</h1>
-    <hr class="com-hr">
-    <div>
-        <form action="/locations/<%= location._id %>/comments" method="POST">
-            <div class="form-group">
-                <label>Comment</label>
-                <input class="form-control" type="text" name=comment[text] placeholder="text">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary">Submit!</button>
-            </div>
-        </form>
-    </div>
+  <h1>Add New Comment</h1>
+  <hr class="com-hr" />
+  <div>
+    <form action="/locations/<%= location._id %>/comments" method="POST">
+      <div class="form-group">
+        <label>Comment</label>
+        <input
+          class="form-control"
+          type="text"
+          name="comment"
+          placeholder="text"
+        />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Submit!</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <% include ../partials/footer %>
